@@ -2,9 +2,7 @@ const UPDATE_NEW_CATEGORY = 'UPDATE-NEW-CATEGORY'
 const ADD_CATEGORY = 'ADD-CATEGORY'
 const DELETE_CATEGORY = 'DELETE-CATEGORY'
 const SAVE_ITEM = 'SAVE-ITEM'
-const CHANGE_TEXT_ITEM = 'CHANGE-TEXT-ITEM'
-const CHANGE_ACTION_ITEM = 'CHANGE-ACTION-ITEM'
-const CHANGE_CATEGORY_IN_ITEM = 'CHANGE-CATEGORY-IN-ITEM'
+const CHANGE_CATEGORY = 'CHANGE-CATEGORY'
 
 let initialState = {
     categories: [
@@ -23,17 +21,14 @@ let initialState = {
         {
             name: 'Item1',
             isDone: true,
-            categoryId: 3
+            categoryId: 1
         },
         {
             name: 'Item2',
             isDone: false,
-            categoryId: 3
+            categoryId: 2
         },
     ],
-    nameNewItem: '',
-    flagNewItem: '',
-    categoryInNewItem: '',
     nameNewCategory: '',
     activeCategory: 0
 }
@@ -69,44 +64,17 @@ const categoryReduser = (state = initialState, action) => {
             return{
                 ...state,
                 items: state.items.map((el)=> {
-                    if(el.id == action.id){
-                         var newItem = {}
-                         newItem['name'] = state.nameNewItem
-                         newItem['isDone'] = state.flagNewItem
-                         newItem['categoryId'] = state.categoryInNewItem
-                        return newItem
-                    }
-                    return el
-                })
-                /*
-                items: state.items.map((el)=> {
                     if(el.id == action.obj.id){
-                        var newItem = {}
-                        for(var k in el){
-                            if(action.obj[k]){
-                                newItem[k] = action.obj[k]
-                            }
-                        }
-                        return newItem
+                        return action.obj
                     }
                     return el
                 })
-                */
             }
-        case CHANGE_TEXT_ITEM:
-            return {
+        case CHANGE_CATEGORY:
+            console.log(action)
+            return{
                 ...state,
-                nameNewItem: action.text
-            }
-        case CHANGE_ACTION_ITEM:
-            return {
-                ...state,
-                flagNewItem: action.flag
-            }
-        case CHANGE_CATEGORY_IN_ITEM:
-            return {
-                ...state,
-                categoryInNewItem: action.idCateg
+                activeCategory: action.id
             }
         default:
             return state
@@ -122,17 +90,12 @@ export const updateCategoriesCreater = (text) =>{
 export const deleteCategoriesCreater = (id) =>{
     return {type: DELETE_CATEGORY, id: id}
 }
-export const saveItemCreater = (id) =>{
-    return {type: SAVE_ITEM, idItem: id}
+export const saveItemCreater = (obj) =>{
+    return {type: SAVE_ITEM, obj: obj}
 }
-export const updateItemTextCreater = (text) =>{//idItem,
-    return {type: CHANGE_TEXT_ITEM, text: text}//, idItem: idItem
+export const changeCategoryCreater = (id) =>{
+    return {type: CHANGE_CATEGORY, id: id}
 }
-export const updateItemFlagCreater = (flag) =>{
-    return {type: CHANGE_ACTION_ITEM, flag: flag}
-}
-export const updateItemCategoryCreater = (idCateg) =>{
-    return {type: CHANGE_ACTION_ITEM, idCateg: idCateg}
-}
+
 
 export default categoryReduser

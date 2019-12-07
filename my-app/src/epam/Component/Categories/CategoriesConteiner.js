@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 import {addCategoryCreator} from '../../redux/category-reducer'
 import {updateCategoriesCreater} from '../../redux/category-reducer'
 import {deleteCategoriesCreater} from '../../redux/category-reducer'
+import {changeCategoryCreater} from '../../redux/category-reducer'
 
 let mapStateToProps = (state) => {
     return {
@@ -22,8 +23,10 @@ let mapStateToDispatch = (dispatch) => {
         },
         deleteCategory: (idCategory) => {
             dispatch(deleteCategoriesCreater(idCategory))
+        },
+        changeCategory: (categoryId) => {
+            dispatch(changeCategoryCreater(categoryId))
         }
-
     }
 }
 let CategoriesConteiner = connect(mapStateToProps,mapStateToDispatch)(CategoriesTree)
