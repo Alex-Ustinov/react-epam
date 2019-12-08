@@ -1,5 +1,6 @@
 import React from 'react'
 import Item from "./Item";
+import t from "./TascList.module.css"
 
 class TaskList extends React.Component {
     constructor(props){
@@ -10,17 +11,28 @@ class TaskList extends React.Component {
     }
 
     render(){
-        console.log(this.props)
-        return <div>
-            <ul>
-                {this.props.items.map((el)=>{
-                    if(el.categoryId == this.props.activeCategory){
-                        return <Item name={el.name} isDone={el.isDone} categoryId={el.categoryId} />
-                    }
-                })}
-            </ul>
-        </div>
+        const {dataCategories, saveItem, items, activeCategory}= this.props
+        return (
+                <div>
+                    <ul className = {t.items}>
+                        {items.map((el)=>{
+                            if(el.categoryId == activeCategory){
+                                return <Item
+                                            dataCategories={dataCategories}
+                                            key={el.id}
+                                            id={el.id}
+                                            name={el.name}
+                                            isDone={el.isDone}
+                                            categoryId={el.categoryId}
+                                            saveItem={saveItem}
+                                        />
+                            }
+                        })}
+                    </ul>
+                </div>
+        );
     }
 
 }
+
 export default TaskList

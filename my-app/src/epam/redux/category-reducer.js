@@ -19,11 +19,13 @@ let initialState = {
     ],
     items: [
         {
+            id: 1,
             name: 'Item1',
             isDone: true,
             categoryId: 1
         },
         {
+            id: 2,
             name: 'Item2',
             isDone: false,
             categoryId: 2
@@ -61,6 +63,7 @@ const categoryReduser = (state = initialState, action) => {
                 })
             }
         case SAVE_ITEM:
+            console.log(action)
             return{
                 ...state,
                 items: state.items.map((el)=> {
@@ -76,6 +79,7 @@ const categoryReduser = (state = initialState, action) => {
                 ...state,
                 activeCategory: action.id
             }
+
         default:
             return state
     }

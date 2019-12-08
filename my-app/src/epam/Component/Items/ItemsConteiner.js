@@ -3,19 +3,21 @@ import {connect} from "react-redux";
 import {saveItemCreater} from '../../redux/category-reducer'
 import TaskList from "./TaskList";
 
-let mapStateToProps = (state) => {
+const mapStateToProps = (state) => {
     return {
         items: state.categoriesData.items,
-        activeCategory: state.categoriesData.activeCategory
+        activeCategory: state.categoriesData.activeCategory,
+        dataCategories: state.categoriesData.categories
     }
 }
 
-let mapStateToDispatch = (dispatch) => {
+const mapStateToDispatch = (dispatch) => {
     return {
         saveItem: (newDataItem) => {
             dispatch(saveItemCreater(newDataItem))
         },
     }
 }
-let ItemsConteiner = connect(mapStateToProps,mapStateToDispatch)(TaskList)
+const ItemsConteiner = connect(mapStateToProps,mapStateToDispatch)(TaskList)
+
 export default ItemsConteiner

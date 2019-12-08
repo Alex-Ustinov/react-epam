@@ -2,7 +2,7 @@ import React,{useState} from 'react'
 import FormAddCategory from './FormAddCategory'
 
 const Category = (props) =>{
-    const[flag,handler] = useState(false)
+    const[ flag, handler ] = useState(false)
 
     let clickAdd = (e) => {
         e.preventDefault()
@@ -18,11 +18,16 @@ const Category = (props) =>{
     }
 
     return(
-        <li onClick={changeCat}>
+        <li onClick={changeCat} key={props.id}>
             {props.name}
             <button onClick={clickAdd}>Add</button>
             <button onClick={deleteOldCateg}>Delete</button>
-            {(!!flag) ? <FormAddCategory addNewCategory={props.add} inputValue={props.newValue} changeInput={props.changeInput}/>: ''}
+            { !!flag && (<FormAddCategory
+                            addNewCategory={props.add}
+                            inputValue={props.newValue}
+                            changeInput={props.changeInput}
+                         />
+            )}
         </li>
 )
 }

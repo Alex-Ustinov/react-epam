@@ -1,7 +1,9 @@
 import React from 'react'
 import Category from "./Category";
+import { Component } from 'react'
+import c from './CategoriesTree.module.css'
 
-class CategoriesTree extends React.Component {
+class CategoriesTree extends Component {
     constructor(props){
         super(props)
         this.state = {
@@ -10,14 +12,27 @@ class CategoriesTree extends React.Component {
     }
 
     render(){
-        return <div>
-            <ul>
-                {this.props.categories.map((el)=>{
-                        return <Category id={el.id} name={el.name} deleteCategoty = {this.props.deleteCategory} add={this.props.addCategory} newValue = {this.props.nameNewCategory} changeInput={this.props.onNewCategoryChange} changeCategory= {this.props.changeCategory}/>
-                })}
-            </ul>
-        </div>
+        const { categories, deleteCategory, nameNewCategory, onNewCategoryChange, addCategory, changeCategory } = this.props;
+        return (
+                <div className={c.bloc}>
+                    <ul className={c.category}>
+                        {categories.map((el)=>{
+                                return <Category
+                                            key={el.id}
+                                            id={el.id}
+                                            name={el.name}
+                                            deleteCategoty={deleteCategory}
+                                            add={addCategory}
+                                            newValue={nameNewCategory}
+                                            changeInput={onNewCategoryChange}
+                                            changeCategory={changeCategory}
+                                        />
+                        })}
+                    </ul>
+                </div>
+        );
     }
 
 }
+
 export default CategoriesTree

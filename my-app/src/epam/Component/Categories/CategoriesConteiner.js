@@ -6,14 +6,14 @@ import {updateCategoriesCreater} from '../../redux/category-reducer'
 import {deleteCategoriesCreater} from '../../redux/category-reducer'
 import {changeCategoryCreater} from '../../redux/category-reducer'
 
-let mapStateToProps = (state) => {
+const mapStateToProps = (state) => {
     return {
         categories: state.categoriesData.categories,
         nameNewCategory: state.categoriesData.nameNewCategory
     }
 }
 
-let mapStateToDispatch = (dispatch) => {
+const mapStateToDispatch = (dispatch) => {
     return {
         addCategory: () => {
             dispatch(addCategoryCreator())
@@ -29,6 +29,6 @@ let mapStateToDispatch = (dispatch) => {
         }
     }
 }
-let CategoriesConteiner = connect(mapStateToProps,mapStateToDispatch)(CategoriesTree)
+const CategoriesConteiner = connect(mapStateToProps,mapStateToDispatch)(CategoriesTree)
+
 export default CategoriesConteiner
-//export default connect(mapStateToProps,mapStateToDispatch)(CategoriesTree)
