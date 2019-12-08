@@ -1,8 +1,4 @@
-const UPDATE_NEW_CATEGORY = 'UPDATE-NEW-CATEGORY'
-const ADD_CATEGORY = 'ADD-CATEGORY'
-const DELETE_CATEGORY = 'DELETE-CATEGORY'
-const SAVE_ITEM = 'SAVE-ITEM'
-const CHANGE_CATEGORY = 'CHANGE-CATEGORY'
+import {UPDATE_NEW_CATEGORY, ADD_CATEGORY, DELETE_CATEGORY, SAVE_ITEM, CHANGE_CATEGORY} from './Constants'
 
 let initialState = {
     categories: [
@@ -44,12 +40,17 @@ const categoryReduser = (state = initialState, action) => {
                 nameNewCategory: action.body
             }
         case ADD_CATEGORY:
-            var body = state.nameNewCategory
-            var newId = Number(state.categories.length) + 1
             return{
                 ...state,
                 nameNewCategory: '',
-                categories: [...state.categories, {name:body, id: newId}]
+                categories: [
+                    ...state.categories,
+                    {
+                        name: state.nameNewCategory,
+                        id: +state.categories.length + 1,
+                        parentId: action.parentId,
+                    }
+                ]
             }
         case DELETE_CATEGORY:
             return {
@@ -63,7 +64,6 @@ const categoryReduser = (state = initialState, action) => {
                 })
             }
         case SAVE_ITEM:
-            console.log(action)
             return{
                 ...state,
                 items: state.items.map((el)=> {
@@ -85,21 +85,5 @@ const categoryReduser = (state = initialState, action) => {
     }
 
 }
-export const addCategoryCreator = () => {
-    return {type: ADD_CATEGORY}
-}
-export const updateCategoriesCreater = (text) =>{
-    return {type: UPDATE_NEW_CATEGORY, body: text}
-}
-export const deleteCategoriesCreater = (id) =>{
-    return {type: DELETE_CATEGORY, id: id}
-}
-export const saveItemCreater = (obj) =>{
-    return {type: SAVE_ITEM, obj: obj}
-}
-export const changeCategoryCreater = (id) =>{
-    return {type: CHANGE_CATEGORY, id: id}
-}
-
 
 export default categoryReduser

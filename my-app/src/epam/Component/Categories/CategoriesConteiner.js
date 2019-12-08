@@ -1,10 +1,10 @@
 import React from "react";
 import CategoriesTree from './CategoriesTree'
 import {connect} from "react-redux";
-import {addCategoryCreator} from '../../redux/category-reducer'
-import {updateCategoriesCreater} from '../../redux/category-reducer'
-import {deleteCategoriesCreater} from '../../redux/category-reducer'
-import {changeCategoryCreater} from '../../redux/category-reducer'
+import {addCategoryCreator} from '../../redux/Actions'
+import {updateCategoriesCreater} from '../../redux/Actions'
+import {deleteCategoriesCreater} from '../../redux/Actions'
+import {changeCategoryCreater} from '../../redux/Actions'
 
 const mapStateToProps = (state) => {
     return {
@@ -15,8 +15,8 @@ const mapStateToProps = (state) => {
 
 const mapStateToDispatch = (dispatch) => {
     return {
-        addCategory: () => {
-            dispatch(addCategoryCreator())
+        addCategory: (parentId) => {
+            dispatch(addCategoryCreator(parentId))
         },
         onNewCategoryChange: (nameNewCategory) => {
             dispatch(updateCategoriesCreater(nameNewCategory))

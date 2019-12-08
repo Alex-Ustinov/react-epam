@@ -21,6 +21,7 @@ class CategoriesTree extends Component {
                                             key={el.id}
                                             id={el.id}
                                             name={el.name}
+                                            parentId = {el.parentId}
                                             deleteCategoty={deleteCategory}
                                             add={addCategory}
                                             newValue={nameNewCategory}

@@ -13,7 +13,6 @@ const Category = (props) =>{
         props.deleteCategoty(props.id)
     }
     let changeCat = (e) => {
-        console.log('changeCategory '+props.id)
         props.changeCategory(props.id)
     }
 
@@ -26,6 +25,7 @@ const Category = (props) =>{
                             addNewCategory={props.add}
                             inputValue={props.newValue}
                             changeInput={props.changeInput}
+                            parentId={props.parentId}
                          />
             )}
         </li>

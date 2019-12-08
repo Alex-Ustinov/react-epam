@@ -4,7 +4,7 @@ const FormAddCategory = (props) => {
     let handler = (e) => {
         e.preventDefault()
         if(props.inputValue.trim()){
-           props.addNewCategory(props.inputValue.trim())
+           props.addNewCategory(props.parentId)//props.inputValue.trim()
         }
     }
     let changeInput = e =>{
