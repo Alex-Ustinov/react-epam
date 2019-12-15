@@ -74,7 +74,6 @@ const categoryReduser = (state = initialState, action) => {
                 })
             }
         case CHANGE_CATEGORY:
-            console.log(action)
             return{
                 ...state,
                 activeCategory: action.id
