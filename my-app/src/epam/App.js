@@ -1,13 +1,17 @@
-import React, {useState} from 'react'
-import CategoriesConteiner from './Component/Categories/CategoriesConteiner'
-import style from './App.css'
-import ItemsConteiner from "./Component/Items/ItemsConteiner";
+import React from 'react'
 
-const App = props => (
-        <div className="wrapper">
-            <CategoriesConteiner />
-            <ItemsConteiner />
-        </div>
+import CategoriesConteiner from './Components/Categories/Components/CategoriesContainer'
+import ItemsConteiner from "./Components/Items/Components/ItemsContainer";
+import HeaderContainer from "./Components/Header/Components/HeadrConteiner"
+
+import style from './App.css'
+
+const App = () => (
+    <div className="wrapper">
+        <HeaderContainer />
+        <CategoriesConteiner />
+        <ItemsConteiner />
+    </div>
 )
 
 export default App
