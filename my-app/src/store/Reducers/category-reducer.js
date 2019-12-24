@@ -1,19 +1,44 @@
 import { CREATE_MAIN_CATEGORY, ADD_CATEGORY, DELETE_CATEGORY, CHANGE_CATEGORY, SHOW_SUB_CATEGORIES } from '../constants';
 
-let initialState = {
+const initialState = {
     categories: [
         {
             id: 1,
             name: 'Category1',
-            parentId: 0
+            parentId: 0,
+            openSubCategories: true,
         },
         {
             id: 2,
             name: 'Category2',
-            parentId: 1
+            parentId: 1,
+            openSubCategories: false,
+        },
+        {
+            id: 3,
+            name: 'Category3',
+            parentId: 1,
+            openSubCategories: false,
+        },
+        {
+            id: 4,
+            name: 'Category4',
+            parentId: 3,
+            openSubCategories: false,
+        },
+        {
+            id: 5,
+            name: 'Category5',
+            parentId: 0,
+            openSubCategories: true,
+        },
+        {
+            id: 6,
+            name: 'Category5',
+            parentId: 4,
+            openSubCategories: false,
         },
     ],
-    nameNewCategory: '',
     activeCategory: 0
 }
 
@@ -33,27 +58,27 @@ const categoryReduser = (state = initialState, action) => {
                     {
                         id: newId,
                         name: action.name,
-                        parentId: 0
+                        parentId: 0,
+                        openSubCategories: true,
                     }
                 ]
             }
         case ADD_CATEGORY:
             return {
                 ...state,
-                nameNewCategory: '',
                 categories: [
                     ...state.categories,
                     {
                         name: action.name,
                         id: +state.categories.length + 1,
                         parentId: action.parentId,
+                        openSubCategories: true,
                     }
                 ]
             }
         case DELETE_CATEGORY:
             return {
                 ...state,
-                nameNewCategory: '',
                 categories: state.categories.filter( el => el.id != action.id)
             }
         case CHANGE_CATEGORY:
@@ -64,15 +89,11 @@ const categoryReduser = (state = initialState, action) => {
         case SHOW_SUB_CATEGORIES:
             return {
                 ...state,
-                categories: state.categories.filter(el => {
-                    if (el.parentId === action.id) {
-                        return true
-                    }
-                })
+                categories: state.categories.map( el => el.parentId === action.id ? {...el, openSubCategories: true} : el)
             }
         default:
             return state;
     }
 }
 
-export default categoryReduser
+export default categoryReduser;

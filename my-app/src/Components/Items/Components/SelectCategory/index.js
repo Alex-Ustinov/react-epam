@@ -1,7 +1,6 @@
 import React from 'react';
 
-const SelectCategories = props => {
-    const { dataItem, grabData, dataCategories } = props
+const SelectCategories = ({ dataItem, grabData, dataCategories }) => {
     let selectCat = e => {
         grabData({
             ...dataItem,
@@ -9,9 +8,9 @@ const SelectCategories = props => {
         })
     }
 
-    return(
+    return (
         <select value={dataItem.id} onChange={selectCat}>
-            {dataCategories.map( el => (
+            { dataCategories.map( el => (
                 <option name="categoryId" key={el.id} value={el.id}>{ el.name }</option>
             ))}
         </select>

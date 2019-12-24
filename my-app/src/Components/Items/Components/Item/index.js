@@ -2,18 +2,16 @@ import React,{ useState } from 'react';
 
 import ItemAction from '../ItemAction';
 
-const Item = props =>{
+const Item = ({ isDone, id, name, dataCategories, saveItem, categoryId }) =>{
     const [ flag, handler ] = useState(false)
-    const { isDone, id, name, dataCategories, saveItem, categoryId } = props
     const [ dataItem, grabData ] = useState({
         name: name,
         isDone: isDone,
         categoryId: categoryId,
         id: id,
-    })
+    });
 
     let openForm = e => {
-        e.preventDefault()
         handler(!flag)
     }
     let changeCheckBox = () =>{
@@ -29,7 +27,7 @@ const Item = props =>{
     return(
             <div>
                 <li key={id}>
-                    <input type="checkbox" checked={isDone} onChange={changeCheckBox}/>
+                    <input type="checkbox" checked={dataItem.isDone} onChange={changeCheckBox}/>
                     {name}
                     <button onClick={openForm}>X</button>
                 </li>
@@ -39,7 +37,7 @@ const Item = props =>{
                                 showForm={handler}
                                 id={id}
                                 name={name}
-                                isDone={isDone}
+                                isDone={dataItem.isDone}
                                 saveItem={saveItem}
                                 categoryId={categoryId}
                                 dataItem={dataItem}

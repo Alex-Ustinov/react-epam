@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 
-const FormAddCategory = props => {
-    const { addCategory, parentId } = props
+const FormAddCategory = ({ addCategory, parentId }) => {
     const [ newName, sentNewCategory ] = useState('')
     let pushCategory = e => {
         e.preventDefault()
@@ -14,7 +13,7 @@ const FormAddCategory = props => {
     }
     return(
         <form onSubmit={pushCategory}>
-            <input value= {newName} onChange={changeDataInput}/>
+            <input value={newName} onChange={changeDataInput}/>
             <button type="submit">Add Category</button>
         </form>
     )
