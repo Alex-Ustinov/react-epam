@@ -1,14 +1,16 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
-import Item from "../Item";
+import { saveItemCreater } from '../../../../store/Actions/item-actions';
+import Item from '../Item';
 
-import style from "./index.module.css";
+import style from './index.css';
 
 const ItemsList = ({ dataCategories, saveItem, items, activeCategory }) => (
     <div>
-        <ul className = {style.items}>
+        <ul className="items">
             {items.map( el => {
-                if (el.categoryId == activeCategory) {
+                if (el.categoryId == activeCategory && (el.show)) {
                     return <Item
                                 dataCategories={dataCategories}
                                 key={el.id}
@@ -24,4 +26,16 @@ const ItemsList = ({ dataCategories, saveItem, items, activeCategory }) => (
     </div>
 );
 
-export default ItemsList
+const mapStateToProps = state => ({
+    items: state.itemsData.items,
+    activeCategory: state.categoriesData.activeCategory,
+    dataCategories: state.categoriesData.categories
+})
+
+const mapStateToDispatch = dispatch => ({
+    saveItem: newDataItem => {
+        dispatch(saveItemCreater(newDataItem))
+    },
+})
+
+export default connect(mapStateToProps,mapStateToDispatch)(ItemsList)

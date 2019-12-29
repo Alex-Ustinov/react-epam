@@ -1,0 +1,10 @@
+.search {
+    position: absolute;
+    left: 760px;
+    top: 80px;
+}
+.spiner {
+    display: block;
+    margin: 0 auto;
+    border-color: red;
+}

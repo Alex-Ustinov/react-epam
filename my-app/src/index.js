@@ -5,8 +5,8 @@ import * as serviceWorker from './serviceWorker';
 import {BrowserRouter} from 'react-router-dom'
 import {Provider} from "react-redux";
 
-import {store} from "./epam/redux/redux-store"
-import App from "./epam/App"
+import {store} from "./store/redux-store"
+import App from "./App"
 ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));
 
 

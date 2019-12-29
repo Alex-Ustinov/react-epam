@@ -1,53 +1,89 @@
-import React, { Component, useState, PureComponent } from 'react'
+import React from 'react';
+import { connect } from 'react-redux';
 
-import Category from "../Category";
+import Category from '../Category';
+import { addCategoryCreator, updateCategoriesCreater, deleteCategoriesCreater, changeCategoryCreater, actualSubCategoriesCreater} from '../../../../store/Actions/category-actions';
 
-import style from './index.module.css'
+import style from './index.css';
 
-class CategoriesTree extends React.PureComponent {
-    constructor(props){
-        super(props)
-        console.log('props.categories')
-        console.log(props.categories)
-        let listCategory = props.categories.filter( el => {
-            if (el.parentId === 0) return true
-            if ((props.id) && (el.parentId === props.id)) return true
-        })
-        this.state = {
-            categories: listCategory,
-            deleteCategory: props.deleteCategory,
-            addCategory: props.addCategory,
-            changeCategory: props.changeCategory,
-            activeCategory: props.activeCategory,
-            showListCategories: props.showListCategories,
-            allCategories: props.categories
+const CategoriesTree = ({ categories, deleteCategory, addCategory, changeCategory, activeCategory, showListCategories } ) => {
+    let obj = {}
+    let treeCategories = []
+
+   let recursion = (data , subId=0, level=0) => {
+        if(!data[subId]) return
+        for (let t=0; t<data[subId].length; t++) {
+            data[subId][t].sideEfect = level
+            treeCategories.push(data[subId][t])
+            recursion(data,data[subId][t].id,level+1)
         }
     }
-    //const { categories, deleteCategory, addCategory, changeCategory, activeCategory, showListCategories } = props;
 
-    render () {
-        return (
-            <div className={style.bloc}>
-                <ul className={style.category}>
-                    { this.state.categories.map( el => {
-                        return <Category
-                                    key={el.id}
-                                    id={el.id}
-                                    name={el.name}
-                                    parentId={el.parentId}
-                                    deleteCategoty={this.state.deleteCategory}
-                                    addCategory={this.state.addCategory}
-                                    changeCategory={this.state.changeCategory}
-                                    activeCategory={this.state.activeCategory}
-                                    categories={this.state.categories}
-                                    showListCategories={this.state.showListCategories}
-                                    allCategories={this.state.allCategories}
-                                />
-                    })}
-                </ul>
-            </div>
-        )
-    };
+
+    let showCategories = () => {
+
+        for (let t=0; t<categories.length; t++) {
+            if(!obj[categories[t].parentId]){
+                obj[categories[t].parentId] = []
+                obj[categories[t].parentId].push(categories[t])
+            }else{
+                obj[categories[t].parentId].push(categories[t])
+            }
+        }
+
+        recursion(obj)
+
+        let categoriesOnPage = [];
+
+        for (let h=0; h<treeCategories.length; h++) {
+            if (treeCategories[h].openSubCategories) {
+
+                categoriesOnPage.push(<Category
+                                        key={treeCategories[h].id}
+                                        id={treeCategories[h].id}
+                                        name={treeCategories[h].name}
+                                        parentId={treeCategories[h].parentId}
+                                        deleteCategoty={deleteCategory}
+                                        addCategory={addCategory}
+                                        changeCategory={changeCategory}
+                                        activeCategory={activeCategory}
+                                        showListCategories={showListCategories}
+                                        sideEfect={treeCategories[h].sideEfect}
+                                      />);
+            }
+        }
+        return categoriesOnPage;
+    }
+
+    return (
+        <div className="bloc">
+            <ul className="category">
+                {showCategories().map( el => (el))}
+            </ul>
+        </div>
+    );
 }
 
-export default CategoriesTree
+const mapStateToProps = state => ({
+    categories: state.categoriesData.categories,
+    activeCategory: state.categoriesData.activeCategory
+})
+
+const mapDispatchToProps = dispatch => ({
+    addCategory: (nameCategory, parentId) => {
+        dispatch(addCategoryCreator(nameCategory, parentId))
+    },
+    onNewCategoryChange: nameNewCategory => {
+        dispatch(updateCategoriesCreater(nameNewCategory))
+    },
+    deleteCategory: idCategory => {
+        dispatch(deleteCategoriesCreater(idCategory))
+    },
+    changeCategory: categoryId => {
+        dispatch(changeCategoryCreater(categoryId))
+    },
+    showListCategories: categoryId => {
+        dispatch(actualSubCategoriesCreater(categoryId))
+    }
+})
+export default connect (mapStateToProps,mapDispatchToProps)(CategoriesTree);
