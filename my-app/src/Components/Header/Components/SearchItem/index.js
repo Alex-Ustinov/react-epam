@@ -1,23 +1,41 @@
-import React, { useState } from 'react';
-import { DebounceInput } from 'react-debounce-input';
-import { debounce } from 'debounce';
+import React, { useState, useEffect } from 'react';
 import { CircleSpinner } from 'react-spinners-kit';
 
 import style from './index.css';
 
-export const SearchItem = ({ searchItems, activeCategory, resultSearch }) => {
-    const [enterValue, grabSugestion] = useState('')
-    const [showSpiner, changeStateSpiner] = useState(resultSearch)
+function debounced(func, wait) {
+    let timeout;
+    return (...args) => {
+      if (timeout) {
+        clearTimeout(timeout);
+      }
+      timeout = setTimeout(() => {
+        func(args);
+      }, wait);
+    };
+}
 
-    let setSearchValues = e => {
-        grabSugestion(e.target.value)
-        let search = searchItems({enterValue: e.target.value, activeCategory})
-        debounce(search,2000)
-        changeStateSpiner(resultSearch)
-    }
+export const SearchItem = ({ searchItems, activeCategory }) => {
+   const [ showSpiner, changeStateSpiner ] = useState(false);
+   const [ query, setQuery ] = useState('');
+
+   useEffect(() => {
+     debounced(() => {
+        if(query.length > 0){
+            searchItems({enterValue: query, activeCategory});
+            changeStateSpiner(false);
+        }
+     }, 2000)();
+   })
+ 
+   const handleOnChange = e => {
+        changeStateSpiner(true);
+        setQuery(e.target.value);
+   }
+
     return(
         <div className="search">
-            <input value={enterValue} onChange={setSearchValues}/>
+            <input value={query} onChange={handleOnChange}/>
             <CircleSpinner 
                 size={20} 
                 color="#686769" 

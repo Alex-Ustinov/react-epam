@@ -5,16 +5,16 @@ const SelectCategories = ({ dataItem, grabData, dataCategories }) => {
         grabData({
             ...dataItem,
             categoryId: e.target.value
-        })
+        });
     }
 
     return (
         <select value={dataItem.id} onChange={selectCat}>
-            { dataCategories.map( el => (
-                <option name="categoryId" key={el.id} value={el.id}>{ el.name }</option>
+            {dataCategories.map(el => (
+                <option name="categoryId" key={el.id} value={el.id}>{el.name}</option>
             ))}
         </select>
     )
 }
 
-export default SelectCategories
+export default SelectCategories;

@@ -8,5 +8,4 @@ const reducers = combineReducers({
     itemsData: itemReduser
 });
 
-export const store = createStore(reducers)
-window.store = store
+export const store = createStore(reducers);

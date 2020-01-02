@@ -1,16 +1,16 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 
 const FormAddCategory = ({ addCategory, parentId, showFormAddCategory, flag }) => {
     const [ newName, sentNewCategory ] = useState('')
     let pushCategory = e => {
         e.preventDefault()
         if (newName.trim()) {
-            addCategory(newName, parentId)
+            addCategory(newName, parentId);
         }
-        showFormAddCategory(!flag)
+        showFormAddCategory(!flag);
     }
     let changeDataInput = e => {
-        sentNewCategory(e.target.value)
+        sentNewCategory(e.target.value);
     }
     return(
         <form onSubmit={pushCategory}>
@@ -20,4 +20,4 @@ const FormAddCategory = ({ addCategory, parentId, showFormAddCategory, flag }) =
     )
 }
 
-export default FormAddCategory
+export default FormAddCategory;

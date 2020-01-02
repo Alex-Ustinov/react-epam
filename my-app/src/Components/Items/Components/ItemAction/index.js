@@ -5,9 +5,9 @@ import SelectCategories from '../SelectCategory';
 const ItemAction = ({ dataItem, grabData, isDone, dataCategories, saveItem, showForm }) => {
 
     let sentForm = e => {
-        e.preventDefault()
-        saveItem(dataItem)
-        showForm(false)
+        e.preventDefault();
+        saveItem(dataItem);
+        showForm(false);
     }
 
     let fieldChange = e => {
@@ -16,12 +16,12 @@ const ItemAction = ({ dataItem, grabData, isDone, dataCategories, saveItem, show
             grabData({
                 ...dataItem,
                 isDone: !dataItem.isDone
-            })
+            });
         } else {
             grabData({
                 ...dataItem,
                 [param]: e.target.value
-            })
+            });
         }
     }
 
@@ -35,4 +35,4 @@ const ItemAction = ({ dataItem, grabData, isDone, dataCategories, saveItem, show
     )
 }
 
-export default ItemAction
+export default ItemAction;

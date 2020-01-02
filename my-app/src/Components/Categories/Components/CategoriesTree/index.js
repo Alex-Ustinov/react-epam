@@ -7,58 +7,46 @@ import { addCategoryCreator, updateCategoriesCreater, deleteCategoriesCreater, c
 import style from './index.css';
 
 const CategoriesTree = ({ categories, deleteCategory, addCategory, changeCategory, activeCategory, showListCategories } ) => {
-    let obj = {}
-    let treeCategories = []
+    let treeCategories = [];
 
-   let recursion = (data , subId=0, level=0) => {
+    let recursion = (data , subId=0, level=0) => {
         if(!data[subId]) return
-        for (let t=0; t<data[subId].length; t++) {
-            data[subId][t].sideEfect = level
-            treeCategories.push(data[subId][t])
-            recursion(data,data[subId][t].id,level+1)
+        for (let t=0; t<data[subId].length; t += 1) {
+            const child = data[subId][t];
+            child.sideEfect = level;
+            treeCategories.push(child);
+            recursion(data, child.id, level+1);
         }
     }
-
 
     let showCategories = () => {
-
-        for (let t=0; t<categories.length; t++) {
-            if(!obj[categories[t].parentId]){
-                obj[categories[t].parentId] = []
-                obj[categories[t].parentId].push(categories[t])
-            }else{
-                obj[categories[t].parentId].push(categories[t])
-            }
+        let obj = {};
+        for (let t=0; t<categories.length; t += 1) {
+            const category = categories[t]
+            const parentId = category.parentId
+            const currentCategory = obj[parentId] || []
+            obj[parentId] = [ ...currentCategory, category ];
         }
-
         recursion(obj)
-
-        let categoriesOnPage = [];
-
-        for (let h=0; h<treeCategories.length; h++) {
-            if (treeCategories[h].openSubCategories) {
-
-                categoriesOnPage.push(<Category
-                                        key={treeCategories[h].id}
-                                        id={treeCategories[h].id}
-                                        name={treeCategories[h].name}
-                                        parentId={treeCategories[h].parentId}
-                                        deleteCategoty={deleteCategory}
-                                        addCategory={addCategory}
-                                        changeCategory={changeCategory}
-                                        activeCategory={activeCategory}
-                                        showListCategories={showListCategories}
-                                        sideEfect={treeCategories[h].sideEfect}
-                                      />);
-            }
-        }
-        return categoriesOnPage;
+        return treeCategories
     }
-
     return (
         <div className="bloc">
             <ul className="category">
-                {showCategories().map( el => (el))}
+                {showCategories().filter(el => el.openSubCategories ? true : false).map(el=>(<Category
+                                                                                                key={el.id}
+                                                                                                id={el.id}
+                                                                                                name={el.name}
+                                                                                                parentId={el.parentId}
+                                                                                                deleteCategoty={deleteCategory}
+                                                                                                addCategory={addCategory}
+                                                                                                changeCategory={changeCategory}
+                                                                                                activeCategory={activeCategory}
+                                                                                                showListCategories={showListCategories}
+                                                                                                sideEfect={el.sideEfect}
+                                                                                            />)
+                    
+                )}
             </ul>
         </div>
     );
