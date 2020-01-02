@@ -60,6 +60,7 @@ const initialState = {
     activeCategory: 0
 }
 
+
 const categoryReduser = (state = initialState, action) => {
     switch (action.type) {
         case CREATE_MAIN_CATEGORY:
