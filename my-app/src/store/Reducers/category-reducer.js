@@ -64,9 +64,9 @@ const categoryReduser = (state = initialState, action) => {
     switch (action.type) {
         case CREATE_MAIN_CATEGORY:
             let newId = 0
-            for(var p=0;p < initialState.categories.length;p++){
+            for (let p = 0; p < initialState.categories.length; p += 1) {
                 if ( initialState.categories[p].parentId === 0 && newId < initialState.categories[p].id ) {
-                    newId = Number(initialState.categories[p].id) + 1
+                    newId = Number(initialState.categories[p].id) + 1;
                 }
             }
             return {
@@ -97,7 +97,7 @@ const categoryReduser = (state = initialState, action) => {
         case DELETE_CATEGORY:
             return {
                 ...state,
-                categories: state.categories.filter( el => el.id != action.id)
+                categories: state.categories.filter(el => el.id != action.id)
             }
         case CHANGE_CATEGORY:
             return {
@@ -105,10 +105,9 @@ const categoryReduser = (state = initialState, action) => {
                 activeCategory: action.id
             }
         case SHOW_SUB_CATEGORIES:
-            console.log('action.id '+action.id)
             return {
                 ...state,
-                categories: state.categories.map( el => el.parentId === action.id ? {...el, openSubCategories: !el.openSubCategories} : el)
+                categories: state.categories.map(el => el.parentId === action.id ? {...el, openSubCategories: !el.openSubCategories} : el)
             }
         default:
             return state;

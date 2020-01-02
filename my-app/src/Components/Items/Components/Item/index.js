@@ -1,9 +1,9 @@
-import React,{ useState } from 'react';
+import React, { useState } from 'react';
 
 import ItemAction from '../ItemAction';
 
-const Item = ({ isDone, id, name, dataCategories, saveItem, categoryId }) =>{
-    const [ flag, handler ] = useState(false)
+const Item = ({ isDone, id, name, dataCategories, saveItem, categoryId }) => {
+    const [ flag, handler ] = useState(false);
     const [ dataItem, grabData ] = useState({
         name: name,
         isDone: isDone,
@@ -12,17 +12,17 @@ const Item = ({ isDone, id, name, dataCategories, saveItem, categoryId }) =>{
     });
 
     let openForm = e => {
-        handler(!flag)
+        handler(!flag);
     }
     let changeCheckBox = () =>{
         saveItem({
             ...dataItem,
             isDone: !isDone
-        })
+        });
         grabData({
             ...dataItem,
             isDone: !isDone
-        })
+        });
     }
     return(
             <div>
@@ -42,7 +42,7 @@ const Item = ({ isDone, id, name, dataCategories, saveItem, categoryId }) =>{
                                 categoryId={categoryId}
                                 dataItem={dataItem}
                                 grabData={grabData}
-                             />
+                            />
                 )}
             </div>
     )

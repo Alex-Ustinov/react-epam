@@ -9,7 +9,7 @@ import style from './index.css';
 const ItemsList = ({ dataCategories, saveItem, items, activeCategory }) => (
     <div>
         <ul className="items">
-            {items.map( el => {
+            {items.map(el => {
                 if (el.categoryId == activeCategory && (el.show)) {
                     return <Item
                                 dataCategories={dataCategories}

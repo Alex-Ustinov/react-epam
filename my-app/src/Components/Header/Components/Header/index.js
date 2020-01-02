@@ -12,9 +12,9 @@ import style from './index.css';
 const Header = ({ addMainCategory, items, addNewItem, activeCategory, searchItems, resultSearch }) => {
     return (
         <header className='header'>
-            <FormAddCategory addCategory={addMainCategory} parentId={0}/>
-            <SearchItem searchItems={searchItems} activeCategory={activeCategory} resultSearch={resultSearch}/>
-            <AddItem addNewItem={addNewItem} activeCategory={activeCategory}/>
+            <FormAddCategory addCategory={addMainCategory} parentId={0} />
+            <SearchItem searchItems={searchItems} activeCategory={activeCategory} />
+            <AddItem addNewItem={addNewItem} activeCategory={activeCategory} />
         </header>
     )
 }
@@ -23,7 +23,6 @@ const mapStateToProps = state => ({
     categories: state.categoriesData.categories,
     items: state.itemsData.items,
     activeCategory: state.categoriesData.activeCategory,
-    resultSearch: state.itemsData.resultSearch
 })
 
 const mapDispatchToProps = dispatch => ({

@@ -3,29 +3,29 @@ import React,{ useState } from 'react';
 import FormAddCategory from '../FormAddCategory';
 
 const Category = ({ deleteCategoty, changeCategory, id, addCategory, parentId, name, activeCategory, showListCategories, sideEfect }) => {
-    const [ flag, showFormAddCategory ] = useState(false)
+    const [ flag, showFormAddCategory ] = useState(false);
 
     const style = {
-            paddingLeft: 30*Number(sideEfect)+'px'
+        paddingLeft: 30*Number(sideEfect)+'px'
     }
 
     let clickAdd = () => {
-        showFormAddCategory(true)
+        showFormAddCategory(true);
     }
     let deleteOldCateg = () => {
-        deleteCategoty(id)
+        deleteCategoty(id);
     }
     let changeCat = () => {
-        changeCategory(id)
+        changeCategory(id);
     }
     let openSubCategories = e => {
-        showListCategories(id)
+        showListCategories(id);
     }
 
     return (
         <li onClick={changeCat} style={style}>
             <button onClick={openSubCategories}>V</button>
-            { name }
+            {name}
             <button onClick={clickAdd}>Add</button>
             <button onClick={deleteOldCateg}>Delete</button>
             {flag && (id === activeCategory) && (
@@ -40,4 +40,4 @@ const Category = ({ deleteCategoty, changeCategory, id, addCategory, parentId, n
     )
 }
 
-export default Category
+export default Category;
