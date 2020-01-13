@@ -1,0 +1,11 @@
+.category {
+    list-style: none;
+}
+
+.bloc {
+    float: left;
+    width: 400px;
+    overflow: scroll;
+    height: 600px;
+    overflow-x: hidden;
+}
