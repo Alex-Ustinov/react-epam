@@ -9,6 +9,9 @@ export const AddItem = ({ addNewItem, activeCategory }) => {
         if (activeCategory === 0) {
             alert('Выберите категорию для нового item !')
         }
+        if (nameNewItem.length == 0) {
+            alert('Вы не ввели название для Item')
+        }
         if (nameNewItem && activeCategory !== 0) {
             addNewItem({
                 name: nameNewItem,

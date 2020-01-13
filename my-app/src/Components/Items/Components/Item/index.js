@@ -2,27 +2,26 @@ import React, { useState } from 'react';
 
 import ItemAction from '../ItemAction';
 
-const Item = ({ isDone, id, name, dataCategories, saveItem, categoryId }) => {
-    const [ flag, handler ] = useState(false);
+const Item = ({ isDone, id, name, dataCategories, saveItem, categoryId, show }) => {
+    const [ stateFormAction, showForm ] = useState(false);
     const [ dataItem, grabData ] = useState({
         name: name,
         isDone: isDone,
         categoryId: categoryId,
         id: id,
+        show: show
     });
 
     let openForm = e => {
-        handler(!flag);
+        showForm(!stateFormAction);
     }
     let changeCheckBox = () =>{
-        saveItem({
+        let data = {
             ...dataItem,
             isDone: !isDone
-        });
-        grabData({
-            ...dataItem,
-            isDone: !isDone
-        });
+        }
+        saveItem(data);
+        grabData(data);
     }
     return(
             <div>
@@ -31,18 +30,13 @@ const Item = ({ isDone, id, name, dataCategories, saveItem, categoryId }) => {
                     {name}
                     <button onClick={openForm}>X</button>
                 </li>
-                { flag && (<ItemAction
-                                flag={flag}
-                                dataCategories={dataCategories}
-                                showForm={handler}
-                                id={id}
-                                name={name}
-                                isDone={dataItem.isDone}
-                                saveItem={saveItem}
-                                categoryId={categoryId}
-                                dataItem={dataItem}
-                                grabData={grabData}
-                            />
+                { stateFormAction && (<ItemAction
+                                        dataCategories={dataCategories}
+                                        showForm={showForm}
+                                        saveItem={saveItem}
+                                        dataItem={dataItem}
+                                        grabData={grabData}
+                                     />
                 )}
             </div>
     )

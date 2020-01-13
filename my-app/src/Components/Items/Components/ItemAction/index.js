@@ -2,36 +2,51 @@ import React,{useState} from 'react';
 
 import SelectCategories from '../SelectCategory';
 
-const ItemAction = ({ dataItem, grabData, isDone, dataCategories, saveItem, showForm }) => {
+import style from './index.css';
+
+const ItemAction = ({ dataItem, grabData, dataCategories, saveItem, showForm }) => {
+    const [ changeData, setNewData ] = useState({...dataItem});
+    const [ stateForm, changeActiveForm ] = useState(true);
 
     let sentForm = e => {
         e.preventDefault();
-        saveItem(dataItem);
+        saveItem(changeData);
         showForm(false);
     }
 
     let fieldChange = e => {
-        let param = e.target.getAttribute('name');
-        if(param === 'isDone'){
-            grabData({
-                ...dataItem,
-                isDone: !dataItem.isDone
-            });
-        } else {
-            grabData({
-                ...dataItem,
-                [param]: e.target.value
-            });
+        const param = e.target.getAttribute('name');
+        const value = param === 'isDone' ? !changeData.isDone : e.target.value;
+        const data = {
+            ...changeData,
+            [param]: value,
         }
+
+        setNewData(data);
+        grabData(data);
+    }
+
+    let closeForm = e => {
+        e.preventDefault()
+        changeActiveForm(false)
     }
 
     return(
-        <form onSubmit={sentForm} >
-            <input name="name" value={dataItem.name} onChange={fieldChange} />
-            <input name="isDone" type="checkbox" checked={dataItem.isDone} onChange={fieldChange}  />
-            <SelectCategories dataItem={dataItem} grabData={grabData} dataCategories={dataCategories} />
-            <button type="submit">Save</button>
-        </form>
+        <div>
+            {stateForm && (
+                <div className="blackout">
+                    <div className="modal">
+                        <form onSubmit={sentForm} >
+                            <input name="name" value={changeData.name} onChange={fieldChange} />
+                            <input name="isDone" type="checkbox" checked={changeData.isDone} onChange={fieldChange}  />
+                            <SelectCategories changeData={changeData} setNewData={setNewData} dataCategories={dataCategories} />
+                            <button type="submit">Save</button>
+                            <button type="submit"onClick={closeForm} className="close">Close</button>
+                        </form>
+                    </div>
+                </div>
+            )}
+        </div>
     )
 }
 

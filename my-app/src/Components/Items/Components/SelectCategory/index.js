@@ -1,15 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-const SelectCategories = ({ dataItem, grabData, dataCategories }) => {
+const SelectCategories = ({ changeData, setNewData, dataCategories }) => {
+    const [ selectValue, setSelectValue ] = useState(changeData.id);
+
     let selectCat = e => {
-        grabData({
-            ...dataItem,
+        setSelectValue(e.target.value)
+        setNewData({
+            ...changeData,
             categoryId: e.target.value
         });
     }
 
     return (
-        <select value={dataItem.id} onChange={selectCat}>
+        <select value={selectValue} onChange={selectCat}>
             {dataCategories.map(el => (
                 <option name="categoryId" key={el.id} value={el.id}>{el.name}</option>
             ))}
