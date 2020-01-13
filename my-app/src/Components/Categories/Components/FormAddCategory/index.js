@@ -1,16 +1,20 @@
 import React, { useState } from 'react';
 
-const FormAddCategory = ({ addCategory, parentId, showFormAddCategory, flag }) => {
+const FormAddCategory = ({ addCategory, parentId, showFormAddCategory, showForm }) => {
     const [ newName, sentNewCategory ] = useState('')
     let pushCategory = e => {
         e.preventDefault()
         if (newName.trim()) {
             addCategory(newName, parentId);
         }
-        showFormAddCategory(!flag);
+        if (showFormAddCategory) {
+            showFormAddCategory(!showForm);
+        }
     }
     let changeDataInput = e => {
-        sentNewCategory(e.target.value);
+        if (e.target.value.trim()) {
+            sentNewCategory(e.target.value);
+        }
     }
     return(
         <form onSubmit={pushCategory}>

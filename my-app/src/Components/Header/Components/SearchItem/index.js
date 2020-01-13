@@ -1,19 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { CircleSpinner } from 'react-spinners-kit';
 
-import style from './index.css';
+import debounced from './../Debounce/index';
 
-function debounced(func, wait) {
-    let timeout;
-    return (...args) => {
-      if (timeout) {
-        clearTimeout(timeout);
-      }
-      timeout = setTimeout(() => {
-        func(args);
-      }, wait);
-    };
-}
+import style from './index.css';
 
 export const SearchItem = ({ searchItems, activeCategory }) => {
    const [ showSpiner, changeStateSpiner ] = useState(false);
