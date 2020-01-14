@@ -1,4 +1,4 @@
-import { CREATE_MAIN_CATEGORY, ADD_CATEGORY, DELETE_CATEGORY, CHANGE_CATEGORY, MOVE_CATEGORIES_TREE } from '../constants';
+import { CREATE_MAIN_CATEGORY, ADD_CATEGORY, DELETE_CATEGORY, CHANGE_CATEGORY, LAUNCH_CATEGORIES } from '../constants';
 
 const initialState = {
     categories: [
@@ -100,15 +100,15 @@ const categoryReduser = (state = initialState, action) => {
                 ...state,
                 activeCategory: action.id
             }
-        case MOVE_CATEGORIES_TREE:
-            if (action.stateCategory) {
+        case LAUNCH_CATEGORIES:
+            if(action.stateCategory){
                 return {
                     ...state,
                     categories: state.categories.map(
                                     el => action.categories.includes(el.parentId) ? {...el, openSubCategories: true} : el
                                 )
                 }
-            } else {
+            }else{
                 return {
                     ...state,
                     categories: state.categories.map(

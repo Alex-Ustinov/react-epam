@@ -42,21 +42,9 @@ const itemReducer = (state = initialState, action) => {
                 )
             }
         case SEARCH_ISDONE_ITEM: 
-        console.log(action)
             return {
                 ...state,
-                isDoneSearch: action.stateSearch, 
-                /*
-                items: state.items.filter(el => el.categoryId === action.idCategory).map(elm => {
-                    if ((!elm.isDone) && (!action.stateSearch)) {
-                       return {...elm, show: true}
-                    } else if ((!elm.isDone) && (action.stateSearch)) {
-                        return {...elm, show: false}
-                    } else {
-                        return {...elm, show: true}
-                    } 
-                })
-                */
+                isDoneSearch: !action.stateSearch, 
             }
         default:
             return state;
