@@ -1,0 +1,8 @@
+.items {
+    list-style: none;
+    float: left;
+    overflow: scroll;
+    height: 585px;
+    overflow-x: hidden;
+    width: 450px;
+}
