@@ -77,7 +77,7 @@ const categoryReduser = (state = initialState, action) => {
                 ]
             }
         case ADD_CATEGORY:
-            let newCategories = state.categories.map(el => el.parentId == action.parentId ? {...el, openSubCategories: true} : el)
+            let newCategories = state.categories.map(el => el.parentId === action.parentId ? {...el, openSubCategories: true} : el)
             newCategories.push({
                 name: action.name,
                 id: state.categories.length + 1,
@@ -93,7 +93,7 @@ const categoryReduser = (state = initialState, action) => {
         case DELETE_CATEGORY:
             return {
                 ...state,
-                categories: state.categories.filter(el => el.id != action.id)
+                categories: state.categories.filter(el => el.id !== action.id)
             }
         case CHANGE_CATEGORY:
             return {
@@ -101,20 +101,14 @@ const categoryReduser = (state = initialState, action) => {
                 activeCategory: action.id
             }
         case LAUNCH_CATEGORIES:
-            if(action.stateCategory){
-                return {
-                    ...state,
-                    categories: state.categories.map(
-                                    el => action.categories.includes(el.parentId) ? {...el, openSubCategories: true} : el
-                                )
-                }
-            }else{
-                return {
-                    ...state,
-                    categories: state.categories.map(
-                                    el => action.categories.includes(el.id) ? {...el, openSubCategories: false} : el
-                                )
-                }
+            const elId = action.stateCategory ? 'parentId' : 'id';
+
+            return {
+                ...state,
+                categories: state.categories.map(el => action.categories.includes(el[elId]) 
+                    ? {...el, openSubCategories: !!action.stateCategory } 
+                    : el
+                )
             }
         default:
             return state;
