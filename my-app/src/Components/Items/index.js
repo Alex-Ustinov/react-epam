@@ -9,15 +9,8 @@ import style from './index.css';
 const ItemsList = ({ dataCategories, saveItem, items, activeCategory, isDoneSearch }) => (
     <div>
         <ul className="items">
-            {items.filter(el => {
-                if (el.categoryId == activeCategory && (el.show) && (el.isDone)) {
-                    return true
-                } else if (el.categoryId == activeCategory && (el.show) && (!el.isDone) && (!isDoneSearch)) {
-                    return true
-                } else {
-                    return false
-                }
-            }).map(elm => (
+            {items.filter(el => ((el.categoryId === activeCategory && (el.show) && ((el.isDone) || ((!el.isDone) && (!isDoneSearch))))
+            )).map(elm => (
                 <Item
                     dataCategories={dataCategories}
                     {...elm}
@@ -33,12 +26,12 @@ const mapStateToProps = state => ({
     activeCategory: state.categoriesData.activeCategory,
     dataCategories: state.categoriesData.categories,
     isDoneSearch: state.itemsData.isDoneSearch
-})
+});
 
 const mapStateToDispatch = dispatch => ({
     saveItem: newDataItem => {
         dispatch(saveItemCreater(newDataItem))
     },
-})
+});
 
 export default connect(mapStateToProps,mapStateToDispatch)(ItemsList)

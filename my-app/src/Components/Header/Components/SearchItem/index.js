@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { CircleSpinner } from 'react-spinners-kit';
 
-import debounced from './../Debounce/index';
+import debounced from '../../../../Helpers/Debounce/index';
 
 import style from './index.css';
 

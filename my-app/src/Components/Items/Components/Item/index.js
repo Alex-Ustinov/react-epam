@@ -12,7 +12,7 @@ const Item = ({ isDone, id, name, dataCategories, saveItem, categoryId, show }) 
         show: show
     });
 
-    let openForm = e => {
+    let openForm = () => {
         showForm(!stateFormAction);
     }
     let changeCheckBox = () =>{
@@ -30,13 +30,14 @@ const Item = ({ isDone, id, name, dataCategories, saveItem, categoryId, show }) 
                     {name}
                     <button onClick={openForm}>X</button>
                 </li>
-                { stateFormAction && (<ItemAction
-                                        dataCategories={dataCategories}
-                                        showForm={showForm}
-                                        saveItem={saveItem}
-                                        dataItem={dataItem}
-                                        grabData={grabData}
-                                     />
+                {stateFormAction && (
+                    <ItemAction
+                        dataCategories={dataCategories}
+                        showForm={showForm}
+                        saveItem={saveItem}
+                        dataItem={dataItem}
+                        grabData={grabData}
+                    />
                 )}
             </div>
     )

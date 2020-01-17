@@ -25,13 +25,12 @@ const itemReducer = (state = initialState, action) => {
         case SAVE_ITEM:
             return {
                 ...state,
-                items: state.items.map(el => el.id == action.obj.id ? action.obj :  el )
+                items: state.items.map(el => el.id === action.obj.id ? action.obj :  el )
             }
         case ADD_ITEM:
-            action.obj.id = state.items.length + 1
             return {
                 ...state,
-                items: [...state.items, action.obj]
+                items: [...state.items, {...action.obj, id: state.items.length + 1}]
             }
         case SEARCH_ITEM:
             return {

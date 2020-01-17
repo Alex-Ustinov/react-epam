@@ -4,10 +4,11 @@ const SelectCategories = ({ changeData, setNewData, dataCategories }) => {
     const [ selectValue, setSelectValue ] = useState(changeData.id);
 
     let selectCat = e => {
-        setSelectValue(e.target.value)
+        const valueIdCategory = e.target.value
+        setSelectValue(valueIdCategory);
         setNewData({
             ...changeData,
-            categoryId: e.target.value
+            categoryId: valueIdCategory
         });
     }
 

@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React, { useState } from 'react';
 
 import SelectCategories from '../SelectCategory';
 
@@ -27,8 +27,8 @@ const ItemAction = ({ dataItem, grabData, dataCategories, saveItem, showForm }) 
     }
 
     let closeForm = e => {
-        e.preventDefault()
-        changeActiveForm(false)
+        e.preventDefault();
+        changeActiveForm(false);
     }
 
     return(
