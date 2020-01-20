@@ -1,20 +1,20 @@
 import React, { useState } from 'react';
 
-import style from './index.css'
+import style from './index.css';
 
 export const AddItem = ({ addNewItem, activeCategory }) => {
     const [ nameNewItem, setNameNewItem ] = useState('')
-    let sentNewItem = e => {
+    const sentNewItem = e => {
         e.preventDefault()
         if (activeCategory === 0) {
             alert('Выберите категорию для нового item !')
         }
-        if (nameNewItem.length == 0) {
+        if (nameNewItem.length === 0) {
             alert('Вы не ввели название для Item')
         }
         if (nameNewItem && activeCategory !== 0) {
             addNewItem({
-                name: nameNewItem,
+                name: nameNewItem.trim(),
                 categoryId: activeCategory,
                 isDone: false,
                 show: true
@@ -22,7 +22,7 @@ export const AddItem = ({ addNewItem, activeCategory }) => {
             setNameNewItem('')
         }
     }
-    let changeDataInput = e => {
+    const changeDataInput = e => {
         setNameNewItem(e.target.value)
     }
     return(

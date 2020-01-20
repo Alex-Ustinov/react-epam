@@ -1,9 +1,9 @@
 import React,{ useState } from 'react';
 
 import FormAddCategory from '../FormAddCategory';
-import closeCategories from '../../helper/closeCategories';
+import { establishCategories } from '../../helpers';
 
-const Category = ({ deleteCategoty, changeCategory, id, addCategory, name, activeCategory, showListCategories, ofset, categories, openSubCategories }) => {
+const Category = ({ parentId, isOpen, deleteCategoty, changeCategory, id, addCategory, name, activeCategory, showListCategories, ofset, categories, openSubCategories }) => {
     const [ showForm, showFormAddCategory ] = useState(false);
     const [ stateCategory, changeStateCategory ] = useState(openSubCategories);
 
@@ -16,13 +16,15 @@ const Category = ({ deleteCategoty, changeCategory, id, addCategory, name, activ
         if (stateCategory) {
             showListCategories([id], stateCategory);
         } else {
-            showListCategories(closeCategories(id, categories), stateCategory);
+            showListCategories(establishCategories(categories, false, id), stateCategory);
         }
     }
+
+    //const arrow = isOpen ? '&dArr;' : '&rArr;'
     
     return (
         <li onClick={() => {changeCategory(id)}} style={style}>
-            <button onClick={actWithSubCategories}>V</button>
+        <button onClick={actWithSubCategories}>{isOpen ? 'V' : '^' }</button>
             {name}
             <button onClick={() => {showFormAddCategory(true)}}>Add</button>
             <button onClick={() => {deleteCategoty(id)}}>Delete</button>

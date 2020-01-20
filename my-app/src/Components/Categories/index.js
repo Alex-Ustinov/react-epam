@@ -1,46 +1,20 @@
-import React,{ useEffect } from 'react';
+import React,{ useState } from 'react';
 import { connect } from 'react-redux';
 
 import Category from './Components/Category';
-import { addCategoryCreator, updateCategoriesCreater, deleteCategoriesCreater, changeCategoryCreater, actualSubCategoriesCreater} from '../../store/Actions/category-actions';
+import { establishCategories } from './helpers';
+import { addCategoryCreator, updateCategoriesCreater, deleteCategoriesCreater, changeCategoryCreater, actualSubCategoriesCreater } from '../../store/Actions/category-actions';
 
 import style from './index.css';
 
 const CategoriesTree = ({ categories, deleteCategory, addCategory, changeCategory, activeCategory, showListCategories }) => {
-
-    let treeCategories = [];
-
-    let recursion = (data , subId=0, level=0) => {
-        if(!data[subId]) return;
-        for (let t=0; t<data[subId].length; t += 1) {
-            const child = data[subId][t];
-            child.ofset = level;
-            treeCategories.push(child);
-            recursion(data, child.id, level+1);
-        }
-    }
-
-    let showCategories = () => {
-        let obj = {};
-        for (let t=0; t<categories.length; t += 1) {
-            const category = categories[t];
-            const parentId = category.parentId;
-            const currentCategory = obj[parentId] || []
-            obj[parentId] = [ ...currentCategory, category ];
-        }
-        recursion(obj)
-        return treeCategories;
-    }
-
     return (
         <div className="bloc">
             <ul className="category">
-                {showCategories().filter(el => el.openSubCategories).map(el=>(
+                {establishCategories(categories, true).filter(el => el.openSubCategories).map(el=>(
                     <Category
                         key={el.id}
-                        id={el.id}
-                        name={el.name}
-                        parentId={el.parentId}
+                        {...el}
                         openSubCategories={el.openSubCategories}
                         deleteCategoty={deleteCategory}
                         addCategory={addCategory}
