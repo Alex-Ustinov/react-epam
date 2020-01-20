@@ -35,10 +35,10 @@ const itemReducer = (state = initialState, action) => {
         case SEARCH_ITEM:
             return {
                 ...state, 
-                items: state.items.map(el => el.categoryId === action.obj.activeCategory && el.name.includes(action.obj.enterValue) 
-                    ? {...el, show: true} 
-                    : {...el, show: false}
-                )
+                items: state.items.map(el => ({
+                    ...el, 
+                    show: el.categoryId === action.obj.activeCategory && el.name.includes(action.obj.enterValue)
+                }))
             }
         case SEARCH_ISDONE_ITEM: 
             return {

@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 
 import ItemAction from '../ItemAction';
 
+import style from './index.css';
+
 const Item = ({ isDone, id, name, dataCategories, saveItem, categoryId, show }) => {
     const [ stateFormAction, showForm ] = useState(false);
     const [ dataItem, grabData ] = useState({
@@ -24,9 +26,9 @@ const Item = ({ isDone, id, name, dataCategories, saveItem, categoryId, show }) 
         grabData(data);
     }
     return(
-            <div>
+            <div className="card">
                 <li key={id}>
-                    <input type="checkbox" checked={dataItem.isDone} onChange={changeCheckBox}/>
+                    <input type="checkbox" className="checkbox" checked={dataItem.isDone} onChange={changeCheckBox}/>
                     {name}
                     <button onClick={openForm}>X</button>
                 </li>
